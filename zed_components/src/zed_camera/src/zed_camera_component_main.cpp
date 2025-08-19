@@ -3845,6 +3845,10 @@ bool ZedCamera::startSvoRecording(std::string & errMsg)
 void ZedCamera::stopSvoRecording()
 {
   if (mRecording) {
+    RCLCPP_INFO(
+      get_logger(),
+      "Calling disableRecording");
+
     mRecording = false;
     mZed->disableRecording();
   }
@@ -7096,6 +7100,11 @@ void ZedCamera::callback_stopSvoRec(
   (void)req;
 
   RCLCPP_INFO(get_logger(), "** Stop SVO Recording service called **");
+  bool could_lock = mRecMutex.try_lock()
+  RCLCPP_INFO(get_logger(), "** Could acquire lock: ** "<<mRecMutex.try_lock());
+  if (could_lock){
+    mRecMutex.unlock()
+  }
 
   std::lock_guard<std::mutex> lock(mRecMutex);
 
