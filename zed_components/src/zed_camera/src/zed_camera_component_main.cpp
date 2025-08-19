@@ -7101,7 +7101,7 @@ void ZedCamera::callback_stopSvoRec(
 
   RCLCPP_INFO(get_logger(), "** Stop SVO Recording service called **");
   bool could_lock = mRecMutex.try_lock();
-  RCLCPP_INFO(get_logger(), std::fmt("** Could acquire lock: {}** ",could_lock));
+  RCLCPP_INFO(get_logger(), std::format("** Could acquire lock: {}** ",could_lock));
   if (could_lock){
     mRecMutex.unlock();
   }
